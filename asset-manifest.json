@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/gusto-dev/nwitter/static/js/main.18e11698.js",
+    "index.html": "/gusto-dev/nwitter/index.html",
+    "main.18e11698.js.map": "/gusto-dev/nwitter/static/js/main.18e11698.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.18e11698.js"
+  ]
+}
