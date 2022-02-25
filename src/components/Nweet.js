@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { dbService, storageService } from 'fbase';
 
@@ -26,18 +28,30 @@ const Nweet = ({ nweetObj, isOwner }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     await updateDoc(doc(dbService, 'nweets', `${nweetObj.id}`), { text: newNweet });
     setEditing(false);
   };
 
   return (
-    <div>
+    <div className="nweet">
       {editing ? (
         <>
-          <form onSubmit={onSubmit}>
-            <input type="text" value={newNweet} onChange={onChange} required />
+          <form onSubmit={onSubmit} className="container nweetEdit">
+            <input
+              type="text"
+              value={newNweet}
+              onChange={onChange}
+              required
+              placeholder="Edit your nweet"
+              autoFocus
+              className="formInput"
+            />
+            <input type="submit" value="Update Nweet" className="formBtn" />
           </form>
-          <button onClick={toggleEditing}>Cancel</button>
+          <button className="formBtn cancelBtn" onClick={toggleEditing}>
+            Cancel
+          </button>
         </>
       ) : (
         <>
@@ -46,10 +60,14 @@ const Nweet = ({ nweetObj, isOwner }) => {
             <img src={nweetObj.attachmentUrl} width="50px" height="50px" alt="이미지" />
           )}
           {isOwner && (
-            <>
-              <button onClick={onDeleteClick}>Delete Nweet</button>
-              <button onClick={toggleEditing}>Edit Nweet</button>
-            </>
+            <div className="nweet__actions">
+              <span onClick={onDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </span>
+              <span onClick={toggleEditing}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </span>
+            </div>
           )}
         </>
       )}
